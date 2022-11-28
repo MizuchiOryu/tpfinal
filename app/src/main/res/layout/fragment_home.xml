@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:foregroundGravity="center"
+    tools:context=".ui.HomeFragment">
+
+
+    <View
+        android:id="@+id/addProduct"
+        android:layout_width="340dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#3980dc"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="166dp" />
+
+    <View
+        android:id="@+id/deleteProduct"
+        android:layout_width="340dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#6857e5"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <View
+        android:id="@+id/myStock"
+        android:layout_width="340dp"
+        android:layout_height="112dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#f5cd76"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="450dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="201dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Ajouter un produit"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:gravity="center"
+
+        app:layout_constraintBottom_toBottomOf="@+id/addProduct"
+        app:layout_constraintEnd_toEndOf="@+id/addProduct"
+        app:layout_constraintStart_toStartOf="@+id/addProduct"
+        app:layout_constraintTop_toTopOf="@+id/addProduct" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="201dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Supprimer un produit"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteProduct"
+        app:layout_constraintEnd_toEndOf="@+id/deleteProduct"
+        app:layout_constraintStart_toStartOf="@+id/deleteProduct"
+        app:layout_constraintTop_toTopOf="@+id/deleteProduct" />
+
+    <TextView
+    android:id="@+id/textView5"
+    android:layout_width="201dp"
+    android:layout_height="26dp"
+    android:fontFamily="@font/poppins_regular"
+    android:text="Supprimer un produit"
+    android:textColor="@color/white"
+    android:gravity="center"
+    android:textSize="18dp"
+    app:layout_constraintBottom_toBottomOf="@+id/myStock"
+    app:layout_constraintEnd_toEndOf="@+id/myStock"
+    app:layout_constraintStart_toStartOf="@+id/myStock"
+    app:layout_constraintTop_toTopOf="@+id/myStock" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
