@@ -14,16 +14,16 @@ public class Product extends SugarRecord {
 
     public UUID id;
     public String name;
-    public Integer limit;
+    public Integer limit_max;
     public Integer current;
 
     public Product(){}
 
-    public Product(String name, Integer limit,Integer current) {
+    public Product(String name, Integer limit_max,Integer current) {
 
         this.id = UUID.randomUUID();
         this.name = name;
-        this.limit = limit;
+        this.limit_max = limit_max;
         this.current = current;
     }
 
@@ -35,12 +35,12 @@ public class Product extends SugarRecord {
         this.name = name;
     }
 
-    public Integer getLimit() {
-        return limit;
+    public Integer getLimit_max() {
+        return limit_max;
     }
 
-    public void setLimit(Integer limit) {
-        this.limit = limit;
+    public void setLimit_max(Integer limit_max) {
+        this.limit_max = limit_max;
     }
 
     public Integer getCurrent() {

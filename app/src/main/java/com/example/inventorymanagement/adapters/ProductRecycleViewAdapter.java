@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.data.model.Product;
+import com.example.inventorymanagement.ui.product.ProductDetailFragment;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ProductRecycleViewAdapter extends RecyclerView.Adapter<ProductRecyc
             Product product = products.get(holder.getAdapterPosition() + 1);
 
             AppCompatActivity activity = (AppCompatActivity) l.getContext();
-            //activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, new ProductDetailActivity()).commit();
+            activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, new ProductDetailFragment(product)).commit();
         });
         return new ProductHolder(view);
     }
@@ -57,14 +58,16 @@ public class ProductRecycleViewAdapter extends RecyclerView.Adapter<ProductRecyc
         public ProductHolder(@NonNull View itemView) {
             super(itemView);
             productName = itemView.findViewById(R.id.productNameView);
-            productLimit = itemView.findViewById(R.id.limitNumber);
-            productCurrent = itemView.findViewById(R.id.current);
+            productLimit = itemView.findViewById(R.id.limitNumberView);
+            productCurrent = itemView.findViewById(R.id.currentView);
         }
 
         public void setDetails(Product product){
             productName.setText(product.getName());
-            productLimit.setText(product.getLimit());
-            productCurrent.setText(product.getCurrent());
+            productLimit.setText("0");
+            productLimit.setText("0");
+            //productCurrent.setText(product.getCurrent());
+            //productCurrent.setText(product.getCurrent());
         }
     }
 }

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.inventorymanagement.R;
-import com.example.inventorymanagement.data.model.Limit;
 import com.example.inventorymanagement.data.model.Product;
 import com.example.inventorymanagement.data.service.ProductService;
 import com.example.inventorymanagement.databinding.FragmentAddProductBinding;
@@ -43,23 +42,23 @@ public class ProductAddFragment extends Fragment {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        String name = binding.name.toString();
-                        if(!service.isExist(name)){
+                        String name = binding.name.getText().toString();
+                        Integer limit = new Integer(binding.limitNumber.getText().toString()).intValue();
+                        Integer stock = new Integer(binding.limitNumber.getText().toString()).intValue();
+                        if(service.isExist(name)){
                             Toast.makeText(getContext(), "Produit deja existant", Toast.LENGTH_SHORT).show();
-                        }
-                        Integer limit = new Integer(binding.limitNumber.toString()).intValue();
-                        if(service.ifPossibleToExtend(limit)){
+                        }else if(!service.ifPossibleToExtend(limit)){
                             Toast.makeText(getContext(), "Impossible d'ajouter cette quantité de produit cela depasse la limite", Toast.LENGTH_SHORT).show();
-                        }
-                        Integer stock = new Integer(binding.limitNumber.toString()).intValue();
-                        if(stock > limit){
+                        }else if(stock > limit){
                             Toast.makeText(getContext(), "Impossible d'ajouter plus que la limite du stock", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Product product = new Product(name,limit,stock);
+                            product.save();
+                            Toast.makeText(getContext(), "Le produit a été ajouter vous allez être redirigés", Toast.LENGTH_SHORT).show();
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
                         }
-                        Product product = new Product(name,limit,stock);
-                        product.save();
-                        Toast.makeText(getContext(), "Le produit a été ajouter vous allez être redirigés", Toast.LENGTH_SHORT).show();
-                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
+
 
                     }
                 }

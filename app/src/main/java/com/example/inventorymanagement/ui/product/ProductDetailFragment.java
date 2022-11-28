@@ -59,7 +59,7 @@ public class ProductDetailFragment extends Fragment {
         });
 
         binding.title.setText(product.getName());
-        binding.limitNumber.setText(product.getLimit());
+        binding.limitNumber.setText(product.getLimit_max());
         binding.current.setText(product.getCurrent());
 
         binding.productDetailBackButton.setOnClickListener(l -> {
@@ -71,17 +71,17 @@ public class ProductDetailFragment extends Fragment {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        Integer limit = new Integer(binding.limitNumber.toString()).intValue();
+                        Integer limit = new Integer(binding.limitNumber.getText().toString()).intValue();
                         if(service.ifPossibleToExtend(limit)){
                             Toast.makeText(getContext(), "Impossible d'ajouter cette quantité de produit cela depasse la limite", Toast.LENGTH_SHORT).show();
                         }
-                        Integer stock = new Integer(binding.limitNumber.toString()).intValue();
+                        Integer stock = new Integer(binding.limitNumber.getText().toString()).intValue();
                         if(stock > limit){
                             Toast.makeText(getContext(), "Impossible d'ajouter plus que la limite du stock", Toast.LENGTH_SHORT).show();
                         }
 
                         product_selected.setCurrent(stock);
-                        product_selected.setLimit(limit);
+                        product_selected.setLimit_max(limit);
                         product_selected.save();
                         Toast.makeText(getContext(), "Le produit a bien été modifié", Toast.LENGTH_SHORT).show();
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();

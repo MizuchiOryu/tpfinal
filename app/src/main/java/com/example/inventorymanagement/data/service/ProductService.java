@@ -1,6 +1,6 @@
 package com.example.inventorymanagement.data.service;
 
-import com.example.inventorymanagement.data.model.Limit;
+import com.example.inventorymanagement.data.model.Local;
 import com.example.inventorymanagement.data.model.Product;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class ProductService {
 
     public boolean ifPossibleToExtend(int add){
         List<Product> products = Product.listAll(Product.class);
-        Limit limit = Limit.listAll(Limit.class).get(0);
+        Local limit = Local.listAll(Local.class).get(0);
 
         int final_count = 0;
         for (Product element : products)
@@ -31,7 +31,7 @@ public class ProductService {
             final_count = final_count + element.getCurrent();
         }
 
-        if (final_count + add < limit.getLimit()){
+        if (final_count + add < limit.getLimit_max()){
             return true;
         }
         return false;

@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.inventorymanagement.R;
-import com.example.inventorymanagement.data.model.Limit;
 import com.example.inventorymanagement.databinding.FragmentHomeBinding;
 import com.example.inventorymanagement.databinding.FragmentStartBinding;
+import com.example.inventorymanagement.ui.product.ProductAddFragment;
 
 import java.util.List;
 
@@ -35,6 +35,27 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ProductAddFragment addFra = new ProductAddFragment();
+        StockFragment stockFrag = new StockFragment();
+        binding.addProduct.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, addFra).commit();
+                    }
+                }
+        );
+        binding.myStock.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, stockFrag).commit();
+                    }
+                }
+        );
     }
 
 }

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.inventorymanagement.R;
-import com.example.inventorymanagement.data.model.Limit;
+import com.example.inventorymanagement.data.model.Local;
 import com.example.inventorymanagement.databinding.FragmentStartBinding;
 
 import java.util.List;
@@ -39,9 +39,9 @@ public class FirstLoadFragment extends Fragment {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
-                        Limit.deleteAll(Limit.class);
-                        Integer number = new Integer(binding.limitNumber.toString()).intValue();
-                        Limit new_limit = new Limit(number);
+                        Local.deleteAll(Local.class);
+                        Integer number = new Integer(binding.limitNumber.getText().toString()).intValue();
+                        Local new_limit = new Local(number);
                         new_limit.save();
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
