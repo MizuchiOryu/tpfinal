@@ -45,9 +45,13 @@ public class ProductAddFragment extends Fragment {
                         String name = binding.name.getText().toString();
                         Integer limit = 0;
                         Integer stock = 0;
+                        limit = new Integer(binding.limitNumber.getText().toString()).intValue();
+                        stock = new Integer(binding.current.getText().toString()).intValue();
                         if(service.isExist(name)){
                             Toast.makeText(getContext(), "Produit deja existant", Toast.LENGTH_SHORT).show();
-                        }else if(!binding.limitNumber.getText().toString().equals("")){
+                        }
+                        /*
+                        else if(!binding.limitNumber.getText().toString().equals("")){
                             limit = new Integer(binding.limitNumber.getText().toString()).intValue();
                         }
                         else if(!binding.current.getText().toString().equals("")){
@@ -56,6 +60,8 @@ public class ProductAddFragment extends Fragment {
                         else if(limit == 0){
                             Toast.makeText(getContext(), "La limite dois etre superieur a 0", Toast.LENGTH_SHORT).show();
                         }
+
+                         */
                         else if(!service.ifPossibleToExtend(limit)){
                             Toast.makeText(getContext(), "Impossible d'ajouter cette quantité de produit cela depasse la limite", Toast.LENGTH_SHORT).show();
                         }else if(stock > limit){
