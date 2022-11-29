@@ -59,34 +59,27 @@ public class ProductDetailFragment extends Fragment {
         });
 
         binding.title.setText(product.getName());
-        binding.limitNumber.setText(product.getLimit_max());
-        binding.current.setText(product.getCurrent());
-
-        binding.productDetailBackButton.setOnClickListener(l -> {
-            AppCompatActivity activity = (AppCompatActivity) l.getContext();
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, new StockFragment()).commit();
-        });
+        binding.limitNumber.setText(product.getLimit_max().toString());
+        binding.current.setText(product.getCurrent().toString());
 
         binding.modify.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
                         Integer limit = new Integer(binding.limitNumber.getText().toString()).intValue();
-                        if(service.ifPossibleToExtend(limit)){
+                        Integer stock = new Integer(binding.current.getText().toString()).intValue();
+                        if(!service.ifPossibleToModify(product.getLimit_max(),limit)){
                             Toast.makeText(getContext(), "Impossible d'ajouter cette quantité de produit cela depasse la limite", Toast.LENGTH_SHORT).show();
-                        }
-                        Integer stock = new Integer(binding.limitNumber.getText().toString()).intValue();
-                        if(stock > limit){
+                        }else if(stock > limit){
                             Toast.makeText(getContext(), "Impossible d'ajouter plus que la limite du stock", Toast.LENGTH_SHORT).show();
+                        }else{
+                            product_selected.setCurrent(stock);
+                            product_selected.setLimit_max(limit);
+                            product_selected.save();
+                            Toast.makeText(getContext(), "Le produit a bien été modifié", Toast.LENGTH_SHORT).show();
+                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
                         }
-
-                        product_selected.setCurrent(stock);
-                        product_selected.setLimit_max(limit);
-                        product_selected.save();
-                        Toast.makeText(getContext(), "Le produit a bien été modifié", Toast.LENGTH_SHORT).show();
-                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
-
                     }
                 }
         );

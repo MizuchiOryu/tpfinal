@@ -14,6 +14,7 @@ import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.databinding.FragmentHomeBinding;
 import com.example.inventorymanagement.databinding.FragmentStartBinding;
 import com.example.inventorymanagement.ui.product.ProductAddFragment;
+import com.example.inventorymanagement.ui.product.ProductDeleteFragment;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
 
         ProductAddFragment addFra = new ProductAddFragment();
         StockFragment stockFrag = new StockFragment();
+        ProductDeleteFragment delFrag = new ProductDeleteFragment();
         binding.addProduct.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
@@ -53,6 +55,16 @@ public class HomeFragment extends Fragment {
                     public void onClick(View view) {
                         AppCompatActivity activity = (AppCompatActivity) view.getContext();
                         activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, stockFrag).commit();
+                    }
+                }
+        );
+
+        binding.deleteProduct.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, delFrag).commit();
                     }
                 }
         );

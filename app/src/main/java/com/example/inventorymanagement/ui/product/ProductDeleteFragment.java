@@ -15,11 +15,11 @@ import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.data.model.Product;
 import com.example.inventorymanagement.data.service.ProductService;
 import com.example.inventorymanagement.databinding.FragmentAddProductBinding;
-import com.example.inventorymanagement.databinding.FragmentStartBinding;
+import com.example.inventorymanagement.databinding.FragmentDeleteProductBinding;
 import com.example.inventorymanagement.ui.HomeFragment;
 
-public class ProductAddFragment extends Fragment {
-    FragmentAddProductBinding binding;
+public class ProductDeleteFragment extends Fragment {
+    FragmentDeleteProductBinding binding;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class ProductAddFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentAddProductBinding.inflate(inflater, container, false);
+        binding = FragmentDeleteProductBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -38,28 +38,18 @@ public class ProductAddFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         HomeFragment fragment = new HomeFragment();
         ProductService service = new ProductService();
-        binding.confirm.setOnClickListener(
+        binding.delete.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
                         String name = binding.name.getText().toString();
-                        Integer limit = new Integer(binding.limitNumber.getText().toString()).intValue();
-                        Integer stock = new Integer(binding.current.getText().toString()).intValue();
                         if(service.isExist(name)){
-                            Toast.makeText(getContext(), "Produit deja existant", Toast.LENGTH_SHORT).show();
-                        }else if(!service.ifPossibleToExtend(limit)){
-                            Toast.makeText(getContext(), "Impossible d'ajouter cette quantité de produit cela depasse la limite", Toast.LENGTH_SHORT).show();
-                        }else if(stock > limit){
-                            Toast.makeText(getContext(), "Impossible d'ajouter plus que la limite du stock", Toast.LENGTH_SHORT).show();
+                            Product selected = service.findByName(name);
+                            selected.delete();
+                            Toast.makeText(getContext(), "Le produit a étais supprimer", Toast.LENGTH_SHORT).show();
                         }else{
-                            Product product = new Product(name,limit,stock);
-                            product.save();
-                            Toast.makeText(getContext(), "Le produit a été ajouter vous allez être redirigés", Toast.LENGTH_SHORT).show();
-                            AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                            activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
+                            Toast.makeText(getContext(), "Aucun produit ne posséde ce nom", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 }
         );

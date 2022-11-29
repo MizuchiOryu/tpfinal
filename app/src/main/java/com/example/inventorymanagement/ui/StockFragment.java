@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.inventorymanagement.R;
 import com.example.inventorymanagement.adapters.ProductRecycleViewAdapter;
+import com.example.inventorymanagement.data.model.Local;
 import com.example.inventorymanagement.data.model.Product;
+import com.example.inventorymanagement.data.service.ProductService;
 import com.example.inventorymanagement.databinding.FragmentHomeBinding;
 import com.example.inventorymanagement.databinding.FragmentStockBinding;
 
@@ -42,15 +46,34 @@ public class StockFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (!productList.isEmpty()){
-            ProductRecycleViewAdapter productRecycleViewAdapter = new ProductRecycleViewAdapter(getContext(), productList);
+        HomeFragment fragment = new HomeFragment();
+        binding.productDetailBackButton.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                        activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFrameLayout, fragment).commit();
+                    }
+                }
+        );
+        ProductService service = new ProductService();
+        Local limit = Local.listAll(Local.class).get(0);
 
-            RecyclerView recyclerView = binding.productRecycleView;
-            recyclerView.setAdapter(productRecycleViewAdapter);
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            recyclerView.setHasFixedSize(true);
-        } else
-            binding.orderViewStub.inflate();
+        Integer pourcent_use = (int)Math.round(service.getPourcentUse());
+        Integer int_available = service.getLimitAvailable();
+        String transform_pourcent_string = pourcent_use.toString() + "%";
+        String transform_int_available = int_available.toString() + " / " + limit.getLimit_max().toString();
+        binding.pourcentCurrent.setText(transform_pourcent_string);
+        binding.available.setText(transform_int_available);
+
+
+        ProductRecycleViewAdapter productRecycleViewAdapter = new ProductRecycleViewAdapter(getContext(), productList);
+
+        RecyclerView recyclerView = binding.productRecycleView;
+        recyclerView.setAdapter(productRecycleViewAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setHasFixedSize(true);
+
     }
 
 }
