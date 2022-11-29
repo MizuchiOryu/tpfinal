@@ -9,16 +9,18 @@
         android:id="@+id/supp_product"
         android:layout_width="295dp"
         android:layout_height="30dp"
-        android:layout_marginTop="124dp"
         android:fontFamily="@font/poppins_regular"
         android:text="Suppression d'un produit"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="22dp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.288"
         app:layout_constraintStart_toEndOf="@+id/productDetailBackButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
 
     <EditText
         android:id="@+id/name"

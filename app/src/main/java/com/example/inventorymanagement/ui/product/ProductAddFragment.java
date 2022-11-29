@@ -43,11 +43,20 @@ public class ProductAddFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         String name = binding.name.getText().toString();
-                        Integer limit = new Integer(binding.limitNumber.getText().toString()).intValue();
-                        Integer stock = new Integer(binding.current.getText().toString()).intValue();
+                        Integer limit = 0;
+                        Integer stock = 0;
                         if(service.isExist(name)){
                             Toast.makeText(getContext(), "Produit deja existant", Toast.LENGTH_SHORT).show();
-                        }else if(!service.ifPossibleToExtend(limit)){
+                        }else if(!binding.limitNumber.getText().toString().equals("")){
+                            limit = new Integer(binding.limitNumber.getText().toString()).intValue();
+                        }
+                        else if(!binding.current.getText().toString().equals("")){
+                            stock = new Integer(binding.current.getText().toString()).intValue();
+                        }
+                        else if(limit == 0){
+                            Toast.makeText(getContext(), "La limite dois etre superieur a 0", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(!service.ifPossibleToExtend(limit)){
                             Toast.makeText(getContext(), "Impossible d'ajouter cette quantité de produit cela depasse la limite", Toast.LENGTH_SHORT).show();
                         }else if(stock > limit){
                             Toast.makeText(getContext(), "Impossible d'ajouter plus que la limite du stock", Toast.LENGTH_SHORT).show();
